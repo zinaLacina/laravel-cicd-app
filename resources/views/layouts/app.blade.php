@@ -71,7 +71,32 @@
             </div>
         </nav>
 
-        @yield('content')
+        <div class="container">
+            <div class="row">
+                @if (Auth::check())
+
+                <div class="col-lg-4">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                                <a href="{{ route('home') }}">Home</a>
+                        </li>
+                        <li class="list-group-item">
+                                <a href="{{ route('category.create') }}">Create new category</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ route('post.create') }}">Create new post</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                    
+                @endif
+                <div class="col-lg-8">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+        
     </div>
 
     <!-- Scripts -->
