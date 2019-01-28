@@ -5,24 +5,29 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <thead>
-                    <th>Category name</th>
+                    <th>Image</th>
+                    <th>Post title name</th>
                     <th>Editing</th>
                     <th>Deleting</th>
                 </thead>
                 <tbody>
-                    @if($categories->count()>0)
-                        @foreach ($categories as $category)
+                    @if($posts->count()>0)
+                        @foreach ($posts as $post)
                             
                         <tr>
-                            <td> {{$category->name}} </td>
+                        <td>
+                            <img src="{{$post->featured}}" alt="{{$post->title}}" width="50px"/>
+                            {{-- {{$post->featured}} --}}
+                        </td>
+                            <td> {{$post->title}} </td>
                         
                             <td>
-                                <a href="{{ route('category.edit',['id'=>$category->id]) }}" class="btn btn-xs btn-info">
+                                <a href="{{ route('post.edit',['id'=>$post->id]) }}" class="btn btn-xs btn-info">
                                     edit
                                 </a>
                             </td>
                             <td>
-                                    <a href="{{ route('category.delete',['id'=>$category->id]) }}" class="btn btn-xs btn-danger">
+                                    <a href="{{ route('post.delete',['id'=>$post->id]) }}" class="btn btn-xs btn-danger">
                                         delete
                                     </a>
                                 </td>

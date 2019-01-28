@@ -85,11 +85,23 @@
                                 <a href="{{ route('categories') }}">Categories</a>
                         </li>
                         <li class="list-group-item">
+                                <a href="{{ route('tags') }}">All Tags</a>
+                        </li>
+                        <li class="list-group-item">
+                                <a href="{{ route('posts') }}">All Posts</a>
+                        </li>
+                        <li class="list-group-item">
+                                <a href="{{ route('posts.trashed') }}">Trashed Posts</a>
+                        </li>
+                        <li class="list-group-item">
                                 <a href="{{ route('category.create') }}">Create new category</a>
                         </li>
                         <li class="list-group-item">
                             <a href="{{ route('post.create') }}">Create new post</a>
                         </li>
+                        <li class="list-group-item">
+                                <a href="{{ route('tag.create') }}">Create new tag</a>
+                            </li>
                         
                     </ul>
                 </div>
@@ -110,6 +122,11 @@
     @if(Session::has('success'))
 
         toastr.success("{{Session::get('success')}}")
+
+    @endif
+    @if(Session::has('info'))
+
+        toastr.success("{{Session::get('info')}}")
 
     @endif
     </script>

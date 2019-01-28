@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Category;
+use App\Tag;
+
+use App\Post;
 
 use Session;
 
-class CategoriesController extends Controller
+class TagsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +20,7 @@ class CategoriesController extends Controller
     public function index()
     {
         //
-        return view("admin.categories.index")->with('categories',Category::all());
+        return view('admin.tags.index')->with('tags',Tag::all());
     }
 
     /**
@@ -29,8 +31,7 @@ class CategoriesController extends Controller
     public function create()
     {
         //
-        
-        return view('admin.categories.create');
+        return view('admin.tags.create');
     }
 
     /**
@@ -41,18 +42,15 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
         $this->validate($request,[
-            'name'=>'required|max:255|min:3'
+            'tag'=>'required'
         ]);
-
-        $category = new Category();
-        $category->name = $request->name;
-        $category->save();
-
-        Session::flash('success','you successfully created a category');
-        //return redirect()->back();
-        return redirect()->route('categories');
+        Tag::create([
+            'tag'=>$request->tag
+        ]);
+        Session::flash('success','you successfully created a tag');
+        return redirect()->back();
     }
 
     /**
@@ -75,9 +73,9 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         //
-        $category = Category::find($id);
-
-        return view('admin.categories.edit')->with('category',$category);
+         //
+         $tag = Tag::find($id);
+         return view('admin.tags.edit')->with('tag',$tag);
     }
 
     /**
@@ -90,16 +88,16 @@ class CategoriesController extends Controller
     public function update(Request $request, $id)
     {
         //
+
         $this->validate($request,[
-            'name'=>'required|max:255|min:3'
+            'tag'=>'required'
         ]);
+        $tag = Tag::find($id);
+        $tag->tag = $request->tag;
 
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->save();
-        Session::flash('success','you successfully edited a category');
-        return redirect()->route('categories');
-
+        $tag->save();
+        Session::flash('success','you successfully edited a tag');
+        return redirect()->back();
     }
 
     /**
@@ -111,10 +109,8 @@ class CategoriesController extends Controller
     public function destroy($id)
     {
         //
-        $category = Category::find($id);
-        $category->delete();
-        Session::flash('success','you successfully delete a category');
-        return redirect()->route('categories');
-
+        Tag::destroy($id);
+        Session::flash('success','you successfully delete a Tag');
+        return redirect()->back();
     }
 }
